@@ -1,0 +1,19 @@
+{
+  "name": "edu-component",
+  "version": "0.0.1",
+  "description": "Netease EDU component generator",
+  "main": "index.js",
+  "bin": {
+    "gen": "./bin/gen.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Netease",
+    "EDU",
+    "Regular"
+  ],
+  "author": "hzhanyuntao",
+  "license": "MIT"
+}
