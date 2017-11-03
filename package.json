@@ -4,7 +4,7 @@
   "description": "Netease EDU component generator",
   "main": "index.js",
   "bin": {
-    "gen": "./bin/gen.js"
+    "edu": "./bin/edu.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,8 +12,24 @@
   "keywords": [
     "Netease",
     "EDU",
+    "ykt",
     "Regular"
   ],
   "author": "hzhanyuntao",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "colors": "^1.1.2",
+    "commander": "^2.11.0",
+    "inquirer": "^3.3.0",
+    "shelljs": "^0.7.8",
+    "through2": "^2.0.3"
+  },
+  "dependencies": {
+    "colors": "^1.1.2",
+    "commander": "^2.11.0",
+    "inquirer": "^3.3.0",
+    "lodash": "^4.17.4",
+    "shelljs": "^0.7.8",
+    "through2": "^2.0.3"
+  }
 }

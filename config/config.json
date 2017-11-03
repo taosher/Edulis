@@ -1,0 +1,13 @@
+{
+    "prefix"   : "nei build -sk",
+    "templates": [
+        {
+            "des"      : "CMS组件",
+            "key"       : "fb85e7dbb675ef5e194b6234cfcc90d9",
+            "params"    : [
+                "name",
+                "author"
+            ]
+        }
+    ]
+}
