@@ -1,0 +1,22 @@
+module.exports = {
+    "prefix"   : "nei build -sk",
+    "templates": [
+        {
+            "des"      : "CMS组件(component-cms)",
+            "key"       : "fb85e7dbb675ef5e194b6234cfcc90d9",
+            "params"    : [
+                "name",
+                "author"
+            ]
+        },
+        {
+            "des"      : "教育产品 - 通用组件",
+            "key"       : "8b99059f8292ebced1335a1285e5d94e",
+            "params"    : [
+                "module",
+                "name",
+                "author"
+            ]
+        }
+    ]
+}
