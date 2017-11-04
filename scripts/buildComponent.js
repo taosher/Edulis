@@ -1,8 +1,10 @@
 const shell = require('shelljs');
-const options = require('../config/config');
+const options = require('./configUtils').getConfig();
 module.exports = (option) => {
     let key = option.key;
-    console.log('Start Build Component ' + option.name);
+    let startTime,endTime;
+    startTime = (new Date()).getTime();
+    console.log('Start Build Component: '.green + option.name);
     delete option.key;
     let params = () => {
         let tempArr = [];
@@ -13,7 +15,9 @@ module.exports = (option) => {
         return tempArr;
     }
     let cmd = [options.prefix,key,...params()].join(' ');
-    console.log('cmd',cmd)
     shell.exec(cmd);
-    console.log('Build End.')
+    console.log('--------------------------------------');
+    console.log('Build End.'.green);
+    endTime = (new Date()).getTime();
+    console.log(('Component built in ' + (endTime - startTime) + 'ms').green);
 }

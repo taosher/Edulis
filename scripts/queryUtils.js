@@ -1,4 +1,4 @@
-const options = require('../config/config');
+const options = require('./configUtils').getConfig();
 
 module.exports = {
     findItemByKey(key) {

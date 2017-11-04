@@ -3,45 +3,50 @@
 const program = require('commander');
 const inquirer = require('inquirer');
 const colors = require('colors');
-const _ = require('lodash');
 const promptUtils = require('../scripts/promptUtils');
+const queryUtils = require('../scripts/queryUtils');
 const buildComponent = require('../scripts/buildComponent');
-// const config = require('../config/config');
+const configUtils = require('../scripts/configUtils');
 const CONST = require('../config/const');
 let options = {};
 let key = '';
 let promptQueue = [];
 
-// try {
-//    options = JSON.parse(config);
-// } catch(e) {
-//     console.log('Error: config error!');
-//     return 1;
-// }
 
 program
     .version('0.0.1')
-    // .option('-t --key','Set A Key')
     
 program
-    .action(() => {
+    .command('*')
+    .description('help')
+    .action(function() {
         program.help();
-        return ;
-    })
+    });
+
 
 program
     .command('component')
     .alias('com')
-    .option('-k, --key [moduleType]', '模块类型')
-    .description('Create A New Component')
+    .description('Build A New Component')
+    .option('-k, --key [moduleType]', 'Component Template Type')
     .action( option => {
         if (!!option.key) {
-            console.log('tamplate key is:',option.key);
+            let item = queryUtils.findItemByKey(option.key);
+            if (!item) {
+                console.log('Error:'.red);
+                console.log('No matched key!'.red);
+                return ;
+            }
+            console.log('template name is:'.green , item.des);
+            console.log('template key is:'.green , option.key);
             key = option.key;
             promptQueue = promptUtils.updatePromptQueue(key);
             inquirer.prompt(promptQueue).then((ans) => {
                 ans.key = key;
                 buildComponent(ans);
+            }).catch((e) => {
+                console.log('Error:'.red);
+                console.log(e);
             });
         } else {
             inquirer.prompt([promptUtils.initPromptQueue()]).then((ans) => {
@@ -50,9 +55,19 @@ program
                     ans.key = key;
                     buildComponent(ans);
                 })
-            })
+            }).catch((e) => {
+                console.log('Error:'.red);
+                console.log(e);
+            });
         }
     } )
+
+program
+    .command('update')
+    .description('Update Config')
+    .action(() => {
+        configUtils.updateConfig();
+    })
 
 
 program.parse(process.argv);

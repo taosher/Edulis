@@ -1,4 +1,3 @@
 module.exports = {
-    "HAS_KEY"  : true,
-    "NO_KEY"   : false
+    "CONFIG_SOURCE"     : "git@github.com:paoloo1995/.edu.git"
 }

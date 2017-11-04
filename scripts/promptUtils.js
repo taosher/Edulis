@@ -1,5 +1,5 @@
-const queueUtil = require('./queueUtil');
-const options = require('../config/config');
+const queryUtils = require('./queryUtils');
+const options = require('./configUtils').getConfig();
 const promptUtils = {
 
     initPromptQueue(key) {
@@ -23,7 +23,7 @@ const promptUtils = {
 
     updatePromptQueue(key) {
         if (!!key && (typeof key === 'string')) {
-            let item = queueUtil.findItemByKey(key);
+            let item = queryUtils.findItemByKey(key);
             let params = item.params; 
             let tempArr = [];
             for (let param of params) {
@@ -33,7 +33,7 @@ const promptUtils = {
                     message : 'Input the component ' + param + ':',
                     validate: (value) => {
                         if (!value) {
-                            return 'Empty input!';
+                            return 'Empty input!'.red;
                         }
                         return true;
                     }
