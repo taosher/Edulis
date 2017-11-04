@@ -1,12 +1,12 @@
 {
-  "name": "edu-component",
+  "name": "edu-cli",
   "version": "0.0.1",
-  "description": "Netease EDU component generator",
-  "main": "index.js",
+  "description": "Netease EDU Component Generator",
   "bin": {
-    "edu": "./bin/edu.js"
+    "edu": "node ./bin/edu.js"
   },
   "scripts": {
+    "postinstall": "node ./scripts/postinstall.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -21,15 +21,12 @@
     "colors": "^1.1.2",
     "commander": "^2.11.0",
     "inquirer": "^3.3.0",
-    "shelljs": "^0.7.8",
-    "through2": "^2.0.3"
+    "shelljs": "^0.7.8"
   },
   "dependencies": {
     "colors": "^1.1.2",
     "commander": "^2.11.0",
     "inquirer": "^3.3.0",
-    "lodash": "^4.17.4",
-    "shelljs": "^0.7.8",
-    "through2": "^2.0.3"
+    "shelljs": "^0.7.8"
   }
 }
