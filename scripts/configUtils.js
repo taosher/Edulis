@@ -13,12 +13,12 @@ const isConfigExist = () => {
 
 const updateConfig = () => {
     console.log('-----------------------');
-    console.log('Start Update:'.yellow);
+    console.log('Start Update:'.yellow || 'Start Update:');
     if (isConfigExist()) {
         shell.exec('rm -rf ' + configPath);
     }
     shell.exec('git clone ' + CONST.CONFIG_SOURCE + ' ' + configPath);
-    console.log('Update End.'.yellow);
+    console.log('Update End.'.yellow || 'Update End.');
 }
 
 const getConfig = () => {
