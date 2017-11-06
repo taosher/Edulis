@@ -1,17 +1,17 @@
 const fs = require('fs');
 const os = require('os');
+const path = require('path');
 const shell = require('shelljs');
+const colors = require('colors');
 const CONST = require('../config/const');
 const homeDir = os.homedir();
-const configPath = homeDir + '/.edu';
+const configPath = path.join(homeDir,'.edu');
 
 const isConfigExist = () => {
-    console.log(1)
     return fs.existsSync(configPath);
 }
 
 const updateConfig = () => {
-    console.log(2)
     console.log('-----------------------');
     console.log('Start Update:'.yellow);
     if (isConfigExist()) {
@@ -22,7 +22,6 @@ const updateConfig = () => {
 }
 
 const getConfig = () => {
-    console.log(3)
     if (isConfigExist()) {
         return require(configPath + '/config.json');    
     } else {

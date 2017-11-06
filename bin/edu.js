@@ -15,6 +15,7 @@ let promptQueue = [];
 
 program
     .version('0.0.1')
+    .usage('edu component [-k [componentKey]]')
     
 program
     .command('*')
@@ -28,7 +29,7 @@ program
     .command('component')
     .alias('com')
     .description('Build A New Component')
-    .option('-k, --key [moduleType]', 'Component Template Type')
+    .option('-k, --key [componentKey]', 'Component Template Key')
     .action( option => {
         if (!!option.key) {
             let item = queryUtils.findItemByKey(option.key);

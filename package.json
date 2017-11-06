@@ -1,9 +1,9 @@
 {
   "name": "edu-cli",
-  "version": "0.0.1",
-  "description": "Netease EDU Component Generator",
+  "version": "0.0.3",
+  "description": "Netease EDU CLI",
   "bin": {
-    "edu": "node ./bin/edu.js"
+    "edu": "./bin/edu.js"
   },
   "scripts": {
     "postinstall": "node ./scripts/postinstall.js",
