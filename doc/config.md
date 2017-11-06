@@ -1,6 +1,6 @@
 # edu-cli 配置说明
 
-edu-cli的配置托管在[ykt-front/.edu](https://g.hz.netease.com/ykt-front/.edu)
+edu-cli的配置托管在[ykt-front/edu-cli-config](https://g.hz.netease.com/ykt-front/edu-cli-config)
 
 运行```edu update```命令可更新到最新配置
 
