@@ -20,7 +20,8 @@ const updateConfig = () => {
     }
     shell.exec('git clone ' + CONST.CONFIG_SOURCE + ' ' + configPath2);
     console.log(configPath2);
-    shell.exec('mv -f '+ configPath2 + ' ' + configPath);
+    shell.mv('-f',configPath2,configPath);
+    // shell.exec('mv -f '+ configPath2 + ' ' + configPath);
     console.log('Update End.'.yellow || 'Update End.');
 }
 
