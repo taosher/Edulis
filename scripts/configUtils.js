@@ -1,3 +1,15 @@
+#!/usr/bin/env node
+'use strict'
+
+/**
+ * EDU-CLI 
+ * Netease EDU Scaffolding Tool
+ * 
+ * @author chukuang(toolve@foxmail.com)
+ * @version 1.0
+ */
+
+
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
@@ -22,7 +34,9 @@ const updateConfig = () => {
     console.log(configPath2);
     shell.mv('-f',configPath2,configPath);
     // shell.exec('mv -f '+ configPath2 + ' ' + configPath);
-    console.log('Update End.'.yellow || 'Update End.');
+    console.log('Update End.'.yellow);
+    console.log('-----------------------');
+    console.log('\n\n');
 }
 
 const getConfig = () => {
@@ -30,7 +44,7 @@ const getConfig = () => {
         return require(configPath + '/config.json');    
     } else {
         console.log('No EDU-CLI Config File!'.yellow);
-        console.log('Start Download The Latest EDU-CL Config:'.yellow);
+        console.log('Start Download The Latest EDU-CLI Config:'.yellow);
         updateConfig();
         console.log('Config Downloaded!'.yellow);
         return require(configPath + '/config.json');
