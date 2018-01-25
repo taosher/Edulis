@@ -10,27 +10,30 @@
  */
 
 
-const shell = require('shelljs');
-const options = require('./configUtils').getConfig();
+const shell = require('shelljs')
+const options = require('./configUtils').getConfig()
 
+/**
+ * Trans config to cli command
+ * @param {object} conf 
+ */
 module.exports = (conf) => {
-    let key = conf.key;
-    let startTime,endTime;
-    startTime = (new Date()).getTime();
-    console.log('Start Build Component: '.green + conf.name);
-    delete conf.key;
+    let key = conf.key
+    let startTime = (new Date()).getTime()
+    console.log('Start Build Component: '.green + conf.name + '\n')
+    delete conf.key
     let params = () => {
-        let tempArr = [];
+        let tempArr = []
         for (let k in conf) {
-            tempArr.push('-' + k);
-            tempArr.push(conf[k]);
+            tempArr.push('-' + k)
+            tempArr.push(conf[k])
         }
-        return tempArr;
+        return tempArr
     }
-    let cmd = [options.prefix,key,...params()].join(' ');
-    shell.exec(cmd);
-    console.log('--------------------------------------');
-    console.log('Build End.'.green);
-    endTime = (new Date()).getTime();
-    console.log(('Component built in ' + (endTime - startTime) + 'ms').green);
+    let cmd = [options.prefix,key,...params()].join(' ')
+    shell.exec(cmd)
+    console.log('--------------------------------------')
+    console.log('Build End.'.green)
+    let endTime = (new Date()).getTime()
+    console.log(('Project built in ' + (endTime - startTime) + 'ms').green)
 }

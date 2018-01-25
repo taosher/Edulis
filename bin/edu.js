@@ -42,12 +42,16 @@ program
     .description('Build A New Component')
     .option('-k, --key [componentKey]', 'Component Template Key')
     .option('-m, --module [componentModule]','Component Module Name')
-    .action( option => {
+    .action( (option) => {
         let item
         let keyFlag = false
         let conf = {}
-
+        
+        /**
+         * initialize key
+         */
         new Promise((resolve) => {
+            //if no key in argv,call prompt
             if (!option.key) {
                 new Promise((res) => res([promptUtils.initPromptQueue()]))
                 .then(inquirer.prompt)
@@ -56,13 +60,14 @@ program
                     resolve(conf.key)
                 })
             } else {
+                //if there is a key in argv, set keyFlag true
                 keyFlag = true
                 conf.key = option.key
                 resolve(conf.key)
             }
         })
         .then((key) => {
-            item = queryUtils.findItemByKey(key)
+            item = queryUtils.findItemByKey(key)    //get config object by key
             if (!item) {
                 console.log('Error: No matched key!'.red)
                 console.log('Please Iuput a right template key!'.red)
@@ -74,26 +79,14 @@ program
             return conf
         })
         .then((conf) => {
-            return new Promise((resolve) => {
-                if (!option.module ) {
-                    // if (!conf.module) {
-                    //     new Promise((res) => {
-                    //         res([promptUtils.modulePromptQueue()])
-                    //     })
-                    //     .then(inquirer.prompt)
-                    //     .then((ans) => {
-                    //         conf.module = ans.module
-                    //         resolve(conf)
-                    //     })   
-                    // }
-                } else {
-                    conf.module = option.module
-                    resolve(conf)
-                }
-            })
+            if (!!option.module) {
+                conf.module = item.module = option.module
+            }
+            return conf
         })
         .then((conf) => {
             return new Promise((resolve) => {
+                //if there are params, call prompts
                 if (!!item.params) {
                     new Promise((res) => res(promptUtils.paramPromptQueue(item)))
                     .then(inquirer.prompt)
@@ -109,9 +102,10 @@ program
             })
         })
         .then((conf) => {
+            console.log('\n---------------------')
             if (keyFlag) {
-                console.log('Built Template:'.green,item.des)
-                console.log('Built Template Key:'.green,item.key)
+                console.log('Build Template:'.green,item.des)
+                console.log('Build Template Key:'.green,item.key)
             }
             buildComponent(conf)
         })

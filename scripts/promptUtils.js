@@ -10,12 +10,14 @@
  */
 
 
-const queryUtils = require('./queryUtils');
-const options = require('./configUtils').getConfig();
+const queryUtils = require('./queryUtils')
+const options = require('./configUtils').getConfig()
 const promptUtils = {
-
+    /**
+     * generate keys prompt queue
+     */
     initPromptQueue() {
-        let templates = options.templates;
+        let templates = options.templates
         let list = function *() {
             for (let i in templates) {
                 yield {
@@ -23,24 +25,28 @@ const promptUtils = {
                     value : templates[i].key
                 }
             }
-        };
+        }
         return {
             type : 'list',
             name : 'key',
-            message : 'Choose A Component Template U Want:',
+            message : 'Choose a Component Template :',
             choices : [...list()]
-        };
+        }
         
     },
 
-    updatePromptQueue(key) {
-        if (!!key && (typeof key === 'string')) {
-            let item = queryUtils.findItemByKey(key);
-            let params = item.params; 
+    //@discard
+    // updatePromptQueue(key) {
+    //     if (!!key && (typeof key === 'string')) {
+    //         let item = queryUtils.findItemByKey(key)
+    //         let params = item.params 
             
-        }
-    },
+    //     }
+    // },
 
+    /**
+     * generate module prompt queue
+     */
     modulePromptQueue() {
         return {
             type: 'input',
@@ -48,32 +54,42 @@ const promptUtils = {
             message : 'Input the component module:',
             validate: (value) => {
                 if (!value) {
-                    return 'Empty input!'.red;
+                    return 'Empty input!'.red
                 }
-                return true;
+                return true
             }
         }
     },
 
+    /**
+     * generate params prompts queue
+     * @param {object} item   config object
+     */
     paramPromptQueue(item) {
-        let tempArr = [];
+        let tempArr = []
         for (let param of item.params) {
+            // console.log(param,item)
+            //if a param set before, continue
+            if (!!item[param]) {
+                // console.log(param,item[param])
+                continue
+            }
             tempArr.push({
                 type: 'input',
                 name : param,
                 message : 'Input the component ' + param + ':',
                 validate: (value) => {
                     if (!value) {
-                        return 'Empty input!'.red;
+                        return 'Empty input!'.red
                     }
-                    return true;
+                    return true
                 }
-            });
+            })
         }
-        return tempArr;
+        return tempArr
     }
 
 
 }
 
-module.exports = promptUtils;
+module.exports = promptUtils

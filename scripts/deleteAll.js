@@ -11,6 +11,11 @@
 
 const shell = require('shelljs');
 const colors = require('colors');
+
+/**
+ * delete all files and dirs in current path
+ * @param {object} option 
+ */
 module.exports = (option) => {
     if (!option.delete) {
         console.log('Delete Abort.'.red)
