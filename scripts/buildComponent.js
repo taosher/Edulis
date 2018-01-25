@@ -12,17 +12,18 @@
 
 const shell = require('shelljs');
 const options = require('./configUtils').getConfig();
-module.exports = (option) => {
-    let key = option.key;
+
+module.exports = (conf) => {
+    let key = conf.key;
     let startTime,endTime;
     startTime = (new Date()).getTime();
-    console.log('Start Build Component: '.green + option.name);
-    delete option.key;
+    console.log('Start Build Component: '.green + conf.name);
+    delete conf.key;
     let params = () => {
         let tempArr = [];
-        for (let k in option) {
+        for (let k in conf) {
             tempArr.push('-' + k);
-            tempArr.push(option[k]);
+            tempArr.push(conf[k]);
         }
         return tempArr;
     }

@@ -26,7 +26,7 @@ let promptQueue = []
 
 program
     .version('0.0.1')
-    .usage('component [-k [componentKey]]')
+    .usage('component [-k [componentKey]] [-m [componentModule]]')
     
 program
     .command('*')
@@ -43,38 +43,82 @@ program
     .option('-k, --key [componentKey]', 'Component Template Key')
     .option('-m, --module [componentModule]','Component Module Name')
     .action( option => {
-        if (!!option.key) {
-            let item = queryUtils.findItemByKey(option.key)
+        let item
+        let keyFlag = false
+        let conf = {}
+
+        new Promise((resolve) => {
+            if (!option.key) {
+                new Promise((res) => res([promptUtils.initPromptQueue()]))
+                .then(inquirer.prompt)
+                .then((ans) => {
+                    conf.key = ans.key
+                    resolve(conf.key)
+                })
+            } else {
+                keyFlag = true
+                conf.key = option.key
+                resolve(conf.key)
+            }
+        })
+        .then((key) => {
+            item = queryUtils.findItemByKey(key)
             if (!item) {
-                console.log('Error:'.red)
-                console.log('No matched key!'.red)
+                console.log('Error: No matched key!'.red)
+                console.log('Please Iuput a right template key!'.red)
                 return 
             }
-            console.log('template name is:'.green , item.des)
-            console.log('template key is:'.green , option.key)
-            key = option.key
-            promptQueue = promptUtils.updatePromptQueue(key)
-            inquirer.prompt(promptQueue).then((ans) => {
-                ans.key = key
-                return ans
+            if (!!item.module) {
+                conf.module = item.module
+            }
+            return conf
+        })
+        .then((conf) => {
+            return new Promise((resolve) => {
+                if (!option.module ) {
+                    // if (!conf.module) {
+                    //     new Promise((res) => {
+                    //         res([promptUtils.modulePromptQueue()])
+                    //     })
+                    //     .then(inquirer.prompt)
+                    //     .then((ans) => {
+                    //         conf.module = ans.module
+                    //         resolve(conf)
+                    //     })   
+                    // }
+                } else {
+                    conf.module = option.module
+                    resolve(conf)
+                }
             })
-            .then(buildComponent)
-            .catch((e) => {
-                console.log('Error:'.red)
-                console.log(e)
+        })
+        .then((conf) => {
+            return new Promise((resolve) => {
+                if (!!item.params) {
+                    new Promise((res) => res(promptUtils.paramPromptQueue(item)))
+                    .then(inquirer.prompt)
+                    .then((ans) => {
+                        Object.keys(ans).forEach((k) => {
+                            conf[k] = ans[k]
+                        })
+                        resolve(conf)
+                    })
+                } else {
+                    resolve(conf)
+                }
             })
-        } else {
-            inquirer.prompt([promptUtils.initPromptQueue()]).then((ans) => {
-                key = ans.key
-                inquirer.prompt(promptUtils.updatePromptQueue(key)).then((ans) => {
-                    ans.key = key
-                    buildComponent(ans)
-                })
-            }).catch((e) => {
-                console.log('Error:'.red)
-                console.log(e)
-            })
-        }
+        })
+        .then((conf) => {
+            if (keyFlag) {
+                console.log('Built Template:'.green,item.des)
+                console.log('Built Template Key:'.green,item.key)
+            }
+            buildComponent(conf)
+        })
+        .catch((e) => {
+            // console.log('Error:'.red)
+            // console.log(e)
+        })
     } )
 
 program
