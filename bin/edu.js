@@ -25,8 +25,9 @@ let promptQueue = []
 
 
 program
-    .version('0.0.1')
-    .usage('component [-k [componentKey]] [-m [componentModule]]')
+    .version('1.0.0')
+    .usage('<command> [--option [value]]')
+
     
 program
     .command('*')
@@ -40,6 +41,7 @@ program
     .command('component')
     .alias('com')
     .description('Build A New Component')
+    .usage('[-k [key]] [-m [module]]')
     .option('-k, --key [componentKey]', 'Component Template Key')
     .option('-m, --module [componentModule]','Component Module Name')
     .action( (option) => {
@@ -70,7 +72,7 @@ program
             item = queryUtils.findItemByKey(key)    //get config object by key
             if (!item) {
                 console.log('Error: No matched key!'.red)
-                console.log('Please Iuput a right template key!'.red)
+                console.log('Please Input a right template key!'.red)
                 return 
             }
             if (!!item.module) {
@@ -102,7 +104,10 @@ program
             })
         })
         .then((conf) => {
-            console.log('\n---------------------')
+            console.log('\n--------------------------------------')
+            //if keyFlag equals to true, 
+            //which means a key has already been given with argv,
+            //print the log below 
             if (keyFlag) {
                 console.log('Build Template:'.green,item.des)
                 console.log('Build Template Key:'.green,item.key)

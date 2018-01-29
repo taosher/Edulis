@@ -21,6 +21,7 @@ module.exports = (option) => {
         console.log('Delete Abort.'.red)
         return
     }
+    console.log('\nStart Deleting...'.green);
     shell.rm('-rf','./*');
     shell.rm('-rf','./.*');
     console.log('Current Dictionary Cleaned'.green);

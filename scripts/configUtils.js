@@ -18,7 +18,7 @@ const colors = require('colors');
 const CONST = require('../config/const');
 const homeDir = os.homedir();
 const configPath = path.join(homeDir,'.edu');
-const configPath2 = path.join(homeDir,'edu-cli-config');
+const originPath = path.join(homeDir,'edu-cli-config');
 
 /**
  * check if config file exists
@@ -34,15 +34,14 @@ const updateConfig = () => {
     console.log('-----------------------');
     console.log('Start Update:'.yellow || 'Start Update:');
     if (isConfigExist()) {
-        shell.exec('rm -rf ' + configPath);
+        shell.rm('-rf',configPath);
     }
-    shell.exec('git clone ' + CONST.CONFIG_SOURCE + ' ' + configPath2);
-    console.log(configPath2);
-    shell.mv('-f',configPath2,configPath);
-    // shell.exec('mv -f '+ configPath2 + ' ' + configPath);
+    shell.exec('git clone ' + CONST.CONFIG_SOURCE + ' ' + originPath);
+    console.log(originPath);
+    shell.mv('-f',originPath,configPath);
+    // shell.exec('mv -f '+ originPath + ' ' + configPath);
     console.log('Update End.'.yellow);
-    console.log('-----------------------');
-    console.log('\n\n');
+    console.log('-----------------------\n');
 }
 
 /**
