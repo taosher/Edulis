@@ -11,5 +11,7 @@
 
 
 module.exports = {
-    "CONFIG_SOURCE"     : "ssh://git@g.hz.netease.com:22222/ykt-front/edu-cli-config.git"
+    "CONFIG_SOURCE"     : "ssh://git@g.hz.netease.com:22222/ykt-front/edu-cli-config.git",
+    "CONFIG_NAME"       : "edu.json",
+    "CONFIG_NAME_SPACE" : "edu-scaffolding"
 }
