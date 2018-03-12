@@ -107,7 +107,7 @@ program
             console.log('\n--------------------------------------')
             //if keyFlag equals to true, 
             //which means a key has already been given with argv,
-            //print the log below 
+            //print the log below.
             if (keyFlag) {
                 console.log('Build Template:'.green,item.des)
                 console.log('Build Template Key:'.green,item.key)

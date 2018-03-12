@@ -22,15 +22,18 @@ const configPath = path.join(homeDir,CONST.CONFIG_NAME)
 // const originPath = path.join(homeDir,'edu-cli-config')
 
 const defaultConfig = require('../config/config.json')
-const pwd = path.normalize(process.cwd())
+const cwd = path.normalize(process.cwd())
 const isGlobalConfigFileExist = fs.existsSync(configPath)
 const isGlobalConfigExist = isGlobalConfigFileExist 
         ? (!!require(configPath)[CONST.CONFIG_NAME_SPACE]) 
         : false
-const isWorkDirConfigFileExist = !!require(path.join(pwd,CONST.CONFIG_NAME)) 
+const isWorkDirConfigFileExist = !!require(path.join(cwd,CONST.CONFIG_NAME)) 
+const isWorkDirConfigExist = isWorkDirConfigFileExist 
+        ? require(path.join(cwd,CONST.CONFIG_NAME))[CONST.CONFIG_NAME_SPACE]
+        : false
 
 
-let content = {}
+let content = Object.create(null)
 content[CONST.CONFIG_NAME_SPACE] = defaultConfig
 
 let globalConfig = workConfig = finalConfig = {}
