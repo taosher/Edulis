@@ -23,12 +23,12 @@ module.exports = (conf) => {
     console.log('Start Build Component: '.green + conf.name + '\n')
     delete conf.key
     let params = () => {
-        let tempArr = []
+        let paramList = []
         for (let k in conf) {
-            tempArr.push('-' + k)
-            tempArr.push(conf[k])
+            paramList.push('-' + k)
+            paramList.push(conf[k])
         }
-        return tempArr
+        return paramList
     }
     let cmd = [options.prefix,key,...params()].join(' ')
     shell.exec(cmd)

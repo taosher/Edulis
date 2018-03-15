@@ -1,21 +1,21 @@
 {
-  "name": "edu-cli",
-  "version": "0.0.5",
-  "description": "Netease EDU CLI",
+  "name": "edulis",
+  "version": "1.0.0",
+  "description": "Netease EDU Scaffolding",
   "bin": {
-    "edu": "./bin/edu.js"
+    "edulis": "./bin/edulis.js"
   },
   "scripts": {
-    "postinstall": "node ./scripts/postinstall.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "node ./scripts/postinstall.js"
   },
   "keywords": [
     "Netease",
     "EDU",
     "ykt",
-    "Regular"
+    "Regular",
+    "Scaffolding"
   ],
-  "author": "hzhanyuntao",
+  "author": "chukuang",
   "license": "MIT",
   "devDependencies": {
     "colors": "^1.1.2",

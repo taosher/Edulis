@@ -2,7 +2,7 @@
     "prefix"   : "nei build -sk",
     "templates": [
         {
-            "des"      : "CMS组件",
+            "des"      : "云课堂 - cms组件",
             "key"       : "fb85e7dbb675ef5e194b6234cfcc90d9",
             "params"    : [
                 "name",
@@ -12,6 +12,42 @@
         {
             "des"      : "教育产品 - 通用组件",
             "key"       : "8b99059f8292ebced1335a1285e5d94e",
+            "params"    : [
+                "module",
+                "name",
+                "author"
+            ]
+        },
+        {
+            "des"      : "教育产品 - 通用模块",
+            "key"       : "3c0776c04ad289211f2987f78737873c",
+            "params"    : [
+                "module",
+                "name",
+                "author"
+            ]
+        },
+        {
+            "des"      : "教育产品 - 模块组件",
+            "key"       : "a55cd53d266bfcc60759ef842bb6ac96",
+            "params"    : [
+                "module",
+                "name",
+                "author"
+            ]
+        },
+        {
+            "des"      : "教育产品 - 业务组件",
+            "key"       : "06df877b5c39bb823ea7d72b97c63ead",
+            "params"    : [
+                "module",
+                "name",
+                "author"
+            ]
+        },
+        {
+            "des"      : "教育产品 - 通用缓存",
+            "key"       : "905652e2305a83c0b4b102b58dff37ef",
             "params"    : [
                 "module",
                 "name",

@@ -19,84 +19,74 @@ const _ = require('lodash')
 const CONST = require('../config/const')
 const homeDir = os.homedir()
 const configPath = path.join(homeDir,CONST.CONFIG_NAME)
-// const originPath = path.join(homeDir,'edu-cli-config')
 
 const defaultConfig = require('../config/config.json')
 const cwd = path.normalize(process.cwd())
-const isGlobalConfigFileExist = fs.existsSync(configPath)
-const isGlobalConfigExist = isGlobalConfigFileExist 
-        ? (!!require(configPath)[CONST.CONFIG_NAME_SPACE]) 
-        : false
-const isWorkDirConfigFileExist = !!require(path.join(cwd,CONST.CONFIG_NAME)) 
-const isWorkDirConfigExist = isWorkDirConfigFileExist 
-        ? require(path.join(cwd,CONST.CONFIG_NAME))[CONST.CONFIG_NAME_SPACE]
-        : false
 
-
-let content = Object.create(null)
-content[CONST.CONFIG_NAME_SPACE] = defaultConfig
-
-let globalConfig = workConfig = finalConfig = {}
+let config = Object.create(null)
 
 /**
- * check if config file exists
- */
-// const initConfig = () => {
-//     const isGlobalConfigFileExist = fs.existsSync(configPath)
-//     const isGlobalConfigExist = isGlobalConfigFileExist 
-//         ? (!!require(configPath)[CONST.CONFIG_NAME_SPACE]) 
-//         : false
-//     const isWorkDirConfigFileExist = 
-//     return fs.existsSync(configPath)
-// }
-
-/**
- * update global config file
- */
-const updateConfig = () => {
-    console.log('-----------------------')
-    console.log('Start Update:'.yellow || 'Start Update:')
-    if (isConfigExist()) {
-        shell.rm('-rf',configPath)
-    }
-    shell.exec('git clone ' + CONST.CONFIG_SOURCE + ' ' + originPath)
-    console.log(originPath)
-    shell.mv('-f',originPath,configPath)
-    // shell.exec('mv -f '+ originPath + ' ' + configPath)
-    console.log('Update End.'.yellow)
-    console.log('-----------------------\n')
-}
-
-/**
- * get config
+ * get final configuration
  */
 const getConfig = () => {
-    let globalConfigFile = fs.openSync(configPath,"wx"),
-        workConfigFile
-    if (!isGlobalConfigFileExist) {
-        fs.writeFileSync(globalConfigFile,JSON.stringify(content))
-    } else if (isGlobalConfigExist) {
-        let globalConfigContent = require(configPath)
-        globalConfigContent[CONST.CONFIG_NAME_SPACE] = defaultConfig
-        fs.writeFileSync(globalConfigFile,JSON.stringify(globalConfigContent))
-    } else {
-
+    if (!_.isEmpty(config)) {
+        return config
     }
-
-    // if (isConfigExist()) {
-    //     return require(configPath + '/config.json')    
-    // } else {
-    //     console.log('No Global EDU-CLI Config File!'.yellow)
-    //     console.log('Start Download The Latest EDU-CLI Config:'.yellow)
-    //     updateConfig()
-    //     console.log('Config Downloaded!'.yellow)
-    //     return require(configPath + '/config.json')
-    // }
+    const isGlobalConfigExist = fs.existsSync(configPath)
+    const isWorkDirConfigExist = fs.existsSync(path.join(cwd,CONST.CONFIG_NAME))
+    if (isGlobalConfigExist) {
+        config = require(configPath)
+    } else {
+        console.log('No Global Configuration.'.yellow)
+        config = initGlobalConfig()
+    }
+    if (isWorkDirConfigExist) {
+        // load and merge workspace configuration
+        const workConfigTemplates = getWorkConfig()
+        config.templates = workConfigTemplates.concat(config.templates)
+    }
+    return config
 }
 
+/**
+ * get workspace configuration
+ */
+const getWorkConfig = () => {
+    let workConfig = require(path.join(cwd,CONST.CONFIG_NAME))
+
+    //compatibility logic
+    if (!_.isEmpty(workConfig.templates))
+        workConfig = workConfig.templates
+
+    //only templates can be merged.
+    //hence it must be a array.
+    if (!_.isArray(workConfig)) {
+        console.log('Fail to parse configuration in work dictionary\n'.red)
+        console.log('Please check the format of configuration'.red)
+        return 
+    }
+    return workConfig
+}
+
+/**
+ * initialize global edulis configuration
+ */
+const initGlobalConfig = () => {
+    const defaultConfig = require('../config/config.json')
+    console.log('\nApply Default Edulis Global Configuration...'.yellow)
+    fs.writeFileSync(configPath,JSON.stringify(defaultConfig,null,4))
+    return defaultConfig
+}
+
+/**
+ * update global configuration
+ */
+const updateConfig = () => {
+    initGlobalConfig()
+    console.log('\nEdulis Global Configuration Updated!\n'.green)
+}
 
 module.exports = {
-    isConfigExist,
-    updateConfig,
-    getConfig
+    getConfig,
+    updateConfig
 }
