@@ -12,11 +12,11 @@
 const program = require('commander')
 const inquirer = require('inquirer')
 const colors = require('colors')
-const promptUtils = require('../scripts/promptUtils')
-const queryUtils = require('../scripts/queryUtils')
-const buildComponent = require('../scripts/buildComponent')
-const deleteAll = require('../scripts/deleteAll')
-const configUtils = require('../scripts/configUtils')
+const promptUtils = require('../lib/promptUtils')
+const queryUtils = require('../lib/queryUtils')
+const buildComponent = require('../lib/buildComponent')
+const deleteAll = require('../lib/deleteAll')
+const configUtils = require('../lib/configUtils')
 const CONST = require('../config/const')
 
 // let key = ''

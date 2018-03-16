@@ -10,6 +10,6 @@
  */
 
 
-const configUtils = require('./configUtils');
+const configUtils = require('../lib/configUtils');
 
 configUtils.updateConfig();
