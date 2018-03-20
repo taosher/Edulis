@@ -7,13 +7,11 @@
 <h3 align="center">网易教育产品交互式前端脚手架</h3>
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/midwayjs/pandora/blob/master/LICENSE)
-![npm](https://img.shields.io/npm/v/npm.svg)
-![npm](https://img.shields.io/npm/dy/localeval.svg)
 
 
 
 # Edulis - A configurable front-end scaffolding based on NEI
-基于NEI的交互式前端脚手架
+网易教育产品交互式前端脚手架
 
 Edulis致力于提供可扩展的、可配置的、基于NEI工程规范的项目脚手架功能吗，每天为你节省5分钟
 
