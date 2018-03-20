@@ -12,16 +12,14 @@
 const program = require('commander')
 const inquirer = require('inquirer')
 const colors = require('colors')
-const promptUtils = require('../scripts/promptUtils')
-const queryUtils = require('../scripts/queryUtils')
-const buildComponent = require('../scripts/buildComponent')
-const deleteAll = require('../scripts/deleteAll')
-const configUtils = require('../scripts/configUtils')
+const promptUtils = require('../lib/promptUtils')
+const queryUtils = require('../lib/queryUtils')
+const buildComponent = require('../lib/buildComponent')
+const deleteAll = require('../lib/deleteAll')
+const configUtils = require('../lib/configUtils')
 const CONST = require('../config/const')
 
-let options = {}
-let key = ''
-let promptQueue = []
+// let key = ''
 
 
 program
@@ -32,7 +30,7 @@ program
 program
     .command('*')
     .description('help')
-    .action(function() {
+    .action(function(option) {
         program.help()
     })
 
@@ -47,33 +45,34 @@ program
     .action( (option) => {
         let item
         let keyFlag = false
-        let conf = {}
         
         /**
          * initialize key
          */
         new Promise((resolve) => {
+            let conf = Object.create(null)
             //if no key in argv,call prompt
             if (!option.key) {
                 new Promise((res) => res([promptUtils.initPromptQueue()]))
                 .then(inquirer.prompt)
                 .then((ans) => {
                     conf.key = ans.key
-                    resolve(conf.key)
+                    resolve(conf)
                 })
             } else {
                 //if there is a key in argv, set keyFlag true
                 keyFlag = true
                 conf.key = option.key
-                resolve(conf.key)
+                resolve(conf)
             }
         })
-        .then((key) => {
+        .then((conf) => {
+            let key = conf.key
             item = queryUtils.findItemByKey(key)    //get config object by key
             if (!item) {
                 console.log('Error: No matched key!'.red)
                 console.log('Please Input a right template key!'.red)
-                return 
+                throw new Error('Key Not found')
             }
             if (!!item.module) {
                 conf.module = item.module
@@ -129,14 +128,16 @@ program
 
 program
     .command('delete')
-    .description('Delete All Files in the Current Dictionary')
+    .description('Delete All Files and Folders in the Current Dictionary')
     .action(() => {
-        inquirer.prompt([{
-            type : 'confirm',
-            name : 'delete',
-            message : 'Delete All Files in the Current Dictionary?',
-            default:false
-        }]).then(deleteAll)
+        console.log('Only enable in development mode.'.yellow)
+        // inquirer.prompt([{
+        //     type : 'confirm',
+        //     name : 'delete',
+        //     message : 'Delete All Files and Folders in the Current Dictionary?',
+        //     default:false
+        // }])
+        // .then(deleteAll)
     })
 
 
