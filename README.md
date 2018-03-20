@@ -17,7 +17,7 @@ Edulis致力于提供可扩展的、可配置的、基于NEI工程规范的项�
 在NEI工程规范中我们需要类似于：
 
 ```bash
-nei build -sk 8b99059f8292ebced1335a1285e5d94e -module term -name member-list -author hzhanyuntao
+nei build -sk 8b99059f8292ebced1335a1285e5d94e -module term -name member-list -author hzxxxxx
 ```
 
 这样的命令去生成一个工程的初始结构，which means：
@@ -38,7 +38,7 @@ nei build -sk 8b99059f8292ebced1335a1285e5d94e -module term -name member-list -a
 }
 ```
 
-则需要在```npm run component```之后手动添加```-name member-list -author hzhanyuntao```，这种体验显然是不自然和不友好的，很容易因为忘记添加后面的参数导致生成了错误的文件
+则需要在```npm run component```之后手动添加```-name member-list -author hzxxxxx```，这种体验显然是不自然和不友好的，很容易因为忘记添加后面的参数导致生成了错误的文件
 
 ## Edulis的用法
 
@@ -54,7 +54,7 @@ npm install -g nei
 npm install -g edulis
 ```
 
-> 因为Edulis的全局配置文件应放置于用户而不是root的home目录下，所以不推荐用sudo进行安装，如果出现非sudo安装权限不够的情况，你需要```sudo chown YOUR_USER_NAME /usr/local/lib/node_modules```，然后安装npm模块就不需要sudo权限了
+> 因为Edulis的全局配置文件应放置于用户而不是root的home目录下，所以不推荐用sudo进行安装，如果出现非sudo安装权限不够的情况，你可能需要```sudo chown YOUR_USER_NAME /usr/local/lib/node_modules```
 
 
 你可以看到Edulis基本用法如下：
@@ -99,7 +99,7 @@ edulis component
 ? Choose a Component Template : 教育产品 - 通用模块
 ? Input the component module: term
 ? Input the component name: member-list
-? Input the component author: hzhanyuntao
+? Input the component author: hzxxxxx
 ```
 
 然后，一个新的“通用模块”就在当前目录诞生啦
@@ -169,6 +169,7 @@ NEI上的工程规范那么多，Edulis只会把其中最通用的一部分包�
             "key": "fb85e7dbb675ef5e194b6234cfcc90d9",
             "params": [
                 "name",
+                "author"
         }
     ]
     ```
@@ -180,3 +181,6 @@ NEI上的工程规范那么多，Edulis只会把其中最通用的一部分包�
 
 - 添加更多通用工程规范
 - 集成umi2project功能，用umi配置生成工程结构
+
+## Others
+本项目开源在[Github](https://github.com/paoloo1995/Edulis/),欢迎Star,欢迎Contribute,欢迎各业务线接入

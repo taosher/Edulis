@@ -130,13 +130,14 @@ program
     .command('delete')
     .description('Delete All Files and Folders in the Current Dictionary')
     .action(() => {
-        inquirer.prompt([{
-            type : 'confirm',
-            name : 'delete',
-            message : 'Delete All Files and Folders in the Current Dictionary?',
-            default:false
-        }])
-        .then(deleteAll)
+        console.log('Only enable in development mode.'.yellow)
+        // inquirer.prompt([{
+        //     type : 'confirm',
+        //     name : 'delete',
+        //     message : 'Delete All Files and Folders in the Current Dictionary?',
+        //     default:false
+        // }])
+        // .then(deleteAll)
     })
 
 
